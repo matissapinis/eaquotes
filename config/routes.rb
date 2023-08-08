@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
   ## GET /about page:
-  get "about", to: "about#index"
+  get "about-us", to: "about#index", as: :about
 
   ## GET root homepage page:
   root to: "main#index"
