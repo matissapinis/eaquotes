@@ -8,4 +8,8 @@ class User < ApplicationRecord
 
   ## Quotes associations and validations:
   has_many :quotes, dependent: :destroy
+
+  def admin?
+    self.admin
+  end  
 end

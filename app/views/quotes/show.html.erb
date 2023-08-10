@@ -10,7 +10,9 @@
 
 <br><br>
 
-<%= link_to "Edit", edit_quote_path(@quote) %> |
-<!-- #### GET method delete link now working: <%= button_to "Delete", quote_path(@quote), method: :delete, data: { confirm: "Are you sure?" } %> | -->
-<%= link_to "Delete", quote_path(@quote), method: :delete, data: { confirm: "Are you sure?" } %> |
+<% if current_user.admin? || @quote.owned_by?(current_user) %>
+    <%= link_to "Edit", edit_quote_path(@quote) %> |
+    <!-- #### GET method delete link now working: <%= button_to "Delete", quote_path(@quote), method: :delete, data: { confirm: "Are you sure?" } %> | -->
+    <%= link_to "Delete", quote_path(@quote), method: :delete, data: { confirm: "Are you sure?" } %> |
+<% end %>
 <%= link_to "Back to All Quotes", quotes_path %>

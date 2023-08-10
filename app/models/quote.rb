@@ -2,6 +2,11 @@ class Quote < ApplicationRecord
     ## Associations and validations:
     belongs_to :user
 
+    ## Check whether a quote belongs to a given user:
+    def owned_by?(user)
+        self.user == user
+    end
+
     validates :content, presence: true
     validates :attribution, presence: true
 
