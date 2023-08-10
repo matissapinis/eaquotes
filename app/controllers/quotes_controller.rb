@@ -8,7 +8,8 @@ class QuotesController < ApplicationController
     def index
         #### @quotes = Quote.all.order(created_at: :desc)
         ## Paginate the quotes:
-        @quotes = Quote.paginate(page: params[:page]).order(created_at: :desc)
+        #### @quotes = Quote.paginate(page: params[:page]).order(created_at: :desc)
+        @quotes = @user.quotes.order(created_at: :desc).paginate(page: params[:quotes_page], per_page: 2)
     end
   
     def show

@@ -16,7 +16,8 @@
 </ul>
 
 <!-- ### TD: 'will_paginate-bootstrap4' gem or another gem for Bootstrap 5? -->
-<%= will_paginate @quotes %>
+<!-- #### <%= will_paginate @quotes %> -->
+<%= will_paginate @quotes, param_name: 'quotes_page' %>
 
 <br>
 <h5><%= @user.display_name %>' favorited quotes:</h5>
@@ -36,4 +37,5 @@
     <% end %>
 </ul>
 
-<%= will_paginate @favorite_quotes %>
+<!-- <%= will_paginate @favorite_quotes %> -->
+<%= will_paginate @favorite_quotes, param_name: 'favorites_page' %>
