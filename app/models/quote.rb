@@ -35,6 +35,17 @@ class Quote < ApplicationRecord
         self.topics.map(&:name)
     end    
 
+    ## Methods to add and remove topics by name:
+    def add_topic_by_name(name)
+        topic = Topic.find_or_create_by(name: name)
+        self.topics << topic unless self.topics.include?(topic)
+    end
+    
+    def remove_topic_by_name(name)
+        topic = Topic.find_by(name: name)
+        self.topics.delete(topic) if topic && self.topics.include?(topic)
+    end
+
     private
     
     def source_link_requires_source

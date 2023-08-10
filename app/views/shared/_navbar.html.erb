@@ -23,7 +23,7 @@
         <!-- ## Navigate to authentication-related pages: -->
         <% if user_signed_in? %>
           <li class="nav-item">
-            Welcome, <%= current_user.display_name %>!
+            <%= link_to "Welcome, " + current_user.display_name + "!", edit_user_registration_path, class: "nav-link" %>
           </li>
           <li class="nav-item">
             <%= link_to "My Quotes", user_quotes_quotes_path, class: "nav-link" %>

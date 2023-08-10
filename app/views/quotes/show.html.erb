@@ -10,10 +10,10 @@
 <small>Original poster comment: <i><%= @quote.comment %></i></small>
 
 <!-- ## Display topics for quote: -->
-<br><br>
-<% @quote.topics.each do |topic| %>
+<br>
+<small>Topics:<% @quote.topics.each do |topic| %>
     <%= link_to topic.name, topic_path(topic) %>
-<% end %>
+<% end %></small>
 
 <br><br>
 

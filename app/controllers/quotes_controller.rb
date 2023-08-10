@@ -72,6 +72,19 @@ class QuotesController < ApplicationController
         @favorite_quotes = current_user.favorited_quotes.paginate(page: params[:page]).order(created_at: :desc)
     end    
 
+    ## Methods to add and remove topics from quotes:
+    def add_topic
+        @quote = Quote.find(params[:id])
+        @quote.add_topic_by_name(params[:topic_name])
+        redirect_to edit_quote_path(@quote)
+    end
+    
+    def remove_topic
+        @quote = Quote.find(params[:id])
+        @quote.remove_topic_by_name(params[:topic_name])
+        redirect_to edit_quote_path(@quote)
+    end
+
     private
   
     def set_quote

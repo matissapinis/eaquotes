@@ -1,3 +1,15 @@
 <h1>Edit Quote</h1>
 <%= render 'form' %>
+
+<!-- ## show "+TopicA" or "-TopicB" links based on whether the topic is associated with the quote: -->
+<% Topic.all.each do |topic| %>
+  <% if @quote.topics.include?(topic) %>
+    <%= link_to "-#{topic.name}", remove_topic_quote_path(@quote, topic_name: topic.name), method: :delete %>
+  <% else %>
+    <%= link_to "+#{topic.name}", add_topic_quote_path(@quote, topic_name: topic.name), method: :post %>
+  <% end %>
+  <br>
+<% end %>
+
+<br>
 <%= link_to "Back to All Quotes", quotes_path %>

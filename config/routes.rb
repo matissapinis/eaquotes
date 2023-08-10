@@ -16,10 +16,14 @@ Rails.application.routes.draw do
       get :user_favorites
     end
 
-    ## Routes for favoriting and unfavoriting:
     member do
+      ## Routes for favoriting and unfavoriting:
       post 'add_favorite'
       delete 'remove_favorite'
+
+      ## Routes for adding and removing topics:
+      post :add_topic
+      delete :remove_topic
     end
   end  
 
