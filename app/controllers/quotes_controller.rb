@@ -51,6 +51,26 @@ class QuotesController < ApplicationController
         @user_quotes = current_user.quotes.paginate(page: params[:page]).order(created_at: :desc)
     end      
 
+    def add_favorite
+        favorite = current_user.favorites.build(quote_id: params[:id])
+        if favorite.save
+          redirect_to quotes_path, notice: 'Quote added to favorites!'
+        else
+          redirect_to quotes_path, alert: 'Something went wrong... *sad panda*'
+        end
+    end
+      
+    def remove_favorite
+        favorite = current_user.favorites.find_by(quote_id: params[:id])
+        favorite.destroy
+        redirect_to quotes_path, notice: 'Quote removed from favorites.'
+    end      
+
+    ## Paginate and display the user's favorite quotes:
+    def user_favorites
+        @favorite_quotes = current_user.favorited_quotes.paginate(page: params[:page]).order(created_at: :desc)
+    end    
+
     private
   
     def set_quote

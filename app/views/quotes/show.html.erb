@@ -4,7 +4,7 @@
 
 <br><br>
 
-<small>Original poster: <%= @quote.user.display_name %> on <%= @quote.created_at.strftime("%B %d, %Y") %></small>
+<small>Original poster: <%= @quote.user.display_name %> on <%= @quote.created_at.strftime("%B %d, %Y") %> &nbsp; <% if current_user.favorited_quotes.include?(@quote) %><%= link_to '❤', remove_favorite_quote_path(@quote), method: :delete %><% else %><%= link_to '🤍', add_favorite_quote_path(@quote), method: :post %><% end %> <%= @quote.favoriting_users.count %></small>
 <br>
 <small>Original poster comment: <%= @quote.comment %></small>
 

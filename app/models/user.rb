@@ -9,6 +9,10 @@ class User < ApplicationRecord
   ## Quotes associations and validations:
   has_many :quotes, dependent: :destroy
 
+  ## Favorites associations:
+  has_many :favorites
+  has_many :favorited_quotes, through: :favorites, source: :quote
+
   def admin?
     self.admin
   end  

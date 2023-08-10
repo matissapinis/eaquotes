@@ -5,6 +5,10 @@ class Quote < ApplicationRecord
     ## Associations and validations:
     belongs_to :user
 
+    ## Favorites associations:
+    has_many :favorites
+    has_many :favoriting_users, through: :favorites, source: :user    
+
     ## Check whether a quote belongs to a given user:
     def owned_by?(user)
         self.user == user

@@ -1,28 +1,18 @@
-<h1>All Quotes</h1>
+<h2>Your Favorited Quotes:</h2>
 
-<%= link_to "New Quote", new_quote_path %>
-<br>
-<br>
-
-<ul>
-    <% @quotes.each do |quote| %>
+<% if @favorite_quotes.present? %>
+    <% @favorite_quotes.each do |quote| %>
         <li>
             “<%= quote.content %>”<br>― <strong><%= quote.attribution %></strong><% if quote.source.present? %><% if quote.source_link.present? %>, <%= link_to quote.source, quote.source_link %><% else %>, <%= quote.source %><% end %><% end %>
             <br>
+            <!-- ## Add buttons to favorite and unfavorite quotes: -->
             <small>Posted by: <%= link_to quote.user.display_name, user_path(quote.user) %> on <%= quote.created_at.strftime("%B %d, %Y") %> &nbsp; <% if current_user.favorited_quotes.include?(quote) %><%= link_to '❤', remove_favorite_quote_path(quote), method: :delete %><% else %><%= link_to '🤍', add_favorite_quote_path(quote), method: :post %><% end %> <%= quote.favoriting_users.count %></small>
             <br>
             <!-- #### ♡ -->
-            <br>
-            <%= link_to "Show", quote_path(quote) %> |
-            <!-- ## Conditionally display the Edit and Delete links: -->
-            <% if current_user.admin? || quote.owned_by?(current_user) %>
-                <%= link_to "Edit", edit_quote_path(quote) %> |
-                <!-- #### GET method delete link now working: <%= button_to "Delete", quote_path(quote), method: :delete, data: { confirm: "Are you sure?" } %> -->
-                <%= link_to "Delete", quote_path(quote), method: :delete, data: { confirm: "Are you sure?" } %>
-            <% end %>
         </li>
         <br>
     <% end %>
-</ul>
-
-<%= will_paginate(@posts) %>
+    <%= will_paginate @favorite_quotes %>
+<% else %>
+    <p>You haven't favorited any quotes yet.</p>
+<% end %>

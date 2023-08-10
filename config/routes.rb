@@ -12,6 +12,13 @@ Rails.application.routes.draw do
   resources :quotes do
     collection do
       get :user_quotes
+      get :user_favorites
+    end
+
+    # Add the new routes for favoriting and unfavoriting here:
+    member do
+      post 'add_favorite'
+      delete 'remove_favorite'
     end
   end  
 
