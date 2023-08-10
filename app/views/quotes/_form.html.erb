@@ -1,18 +1,21 @@
 <%= form_with(model: @quote) do |f| %>
-  <%= f.label :content %>
-  <%= f.text_area :content %>
+    <%= f.label :content %>
+    <%= f.text_area :content %>
 
-  <%= f.label :attribution %>
-  <%= f.text_field :attribution %>
+    <%= f.label :attribution %>
+    <%= f.text_field :attribution %>
 
-  <%= f.label :source %>
-  <%= f.text_field :source %>
+    <%= f.label :source %>
+    <%= f.text_field :source %>
 
-  <%= f.label :source_link %>
-  <%= f.text_field :source_link %>
+    <%= f.label :source_link %>
+    <%= f.text_field :source_link %>
 
-  <%= f.label :comment %>
-  <%= f.text_area :comment %>
+    <%= f.label :comment %>
+    <%= f.text_area :comment %>
 
-  <%= f.submit %>
+    <%= f.label :topics %>
+    <%= f.text_field :topic_names, value: @quote.topic_names.join(", "), placeholder: "Add topics separated by commas." %>
+
+    <%= f.submit %>
 <% end %>

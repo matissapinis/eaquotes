@@ -1,6 +1,7 @@
 class QuotesController < ApplicationController
     before_action :set_quote, only: [:show, :edit, :update, :destroy]
-    before_action :authorize_user!, only: [:edit, :update, :destroy]
+    #### before_action :authorize_user!, only: [:edit, :update, :destroy]
+    before_action :authorize_user!, only: [:edit, :update, :destroy, :add_topic, :remove_topic]
 
     ## Make sure that only logged-in users can access their quotes:
     before_action :authenticate_user!, only: [:user_quotes]
@@ -84,7 +85,7 @@ class QuotesController < ApplicationController
     end
   
     def quote_params
-      params.require(:quote).permit(:content, :attribution, :source, :source_link, :comment)
-    end
+        params.require(:quote).permit(:content, :attribution, :source, :source_link, :comment, :topic_names)
+    end    
 end
   

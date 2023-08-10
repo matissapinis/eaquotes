@@ -1,12 +1,19 @@
-<p>“<%= @quote.content %>”</p>
+<br>
+<!-- #### <p>“<%= @quote.content %>”</p> -->
 <!-- ## Using `.present?` to handle both nil and empty string cases: -->
-― <strong><%= @quote.attribution %></strong><% if @quote.source.present? %><% if @quote.source_link.present? %>, <%= link_to @quote.source, @quote.source_link %><% else %>, <%= @quote.source %><% end %><% end %>
+“<%= @quote.content %>”<br>― <strong><%= @quote.attribution %></strong><% if @quote.source.present? %><% if @quote.source_link.present? %>, <%= link_to @quote.source, @quote.source_link %><% else %>, <%= @quote.source %><% end %><% end %>
 
 <br><br>
 
 <small>Original poster: <%= @quote.user.display_name %> on <%= @quote.created_at.strftime("%B %d, %Y") %> &nbsp; <% if current_user.favorited_quotes.include?(@quote) %><%= link_to '❤', remove_favorite_quote_path(@quote), method: :delete %><% else %><%= link_to '🤍', add_favorite_quote_path(@quote), method: :post %><% end %> <%= @quote.favoriting_users.count %></small>
 <br>
-<small>Original poster comment: <%= @quote.comment %></small>
+<small>Original poster comment: <i><%= @quote.comment %></i></small>
+
+<!-- ## Display topics for quote: -->
+<br><br>
+<% @quote.topics.each do |topic| %>
+    +<%= link_to topic.name, topic_path(topic) %>
+<% end %>
 
 <br><br>
 

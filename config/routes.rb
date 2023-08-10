@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  get 'topics/show'
   get 'users/show'
   ## GET /about page:
   get "about-us", to: "about#index", as: :about
@@ -26,6 +27,9 @@ Rails.application.routes.draw do
   resources :users, only: [:show, :update] do
     get 'settings', on: :collection
   end
+
+  ## Routes for topics:
+  resources :topics, only: [:show, :index]
   
   # Defines the root path route ("/")
   # root "articles#index"

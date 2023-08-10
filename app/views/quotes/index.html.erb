@@ -13,9 +13,9 @@
             <br>
             <!-- #### ♡ -->
             <br>
-            <%= link_to "Show", quote_path(quote) %> |
+            <%= link_to "Show", quote_path(quote) %>
             <!-- ## Conditionally display the Edit and Delete links: -->
-            <% if current_user.admin? || quote.owned_by?(current_user) %>
+            <% if current_user.admin? || quote.owned_by?(current_user) %> |
                 <%= link_to "Edit", edit_quote_path(quote) %> |
                 <!-- #### GET method delete link now working: <%= button_to "Delete", quote_path(quote), method: :delete, data: { confirm: "Are you sure?" } %> -->
                 <%= link_to "Delete", quote_path(quote), method: :delete, data: { confirm: "Are you sure?" } %>

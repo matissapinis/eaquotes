@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_08_10_114351) do
+ActiveRecord::Schema[7.0].define(version: 2023_08_10_121544) do
   create_table "favorites", force: :cascade do |t|
     t.integer "user_id", null: false
     t.integer "quote_id", null: false
@@ -31,6 +31,21 @@ ActiveRecord::Schema[7.0].define(version: 2023_08_10_114351) do
     t.text "comment"
     t.integer "user_id"
     t.index ["user_id"], name: "index_quotes_on_user_id"
+  end
+
+  create_table "quotes_topics", force: :cascade do |t|
+    t.integer "quote_id", null: false
+    t.integer "topic_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["quote_id"], name: "index_quotes_topics_on_quote_id"
+    t.index ["topic_id"], name: "index_quotes_topics_on_topic_id"
+  end
+
+  create_table "topics", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "users", force: :cascade do |t|
@@ -58,4 +73,6 @@ ActiveRecord::Schema[7.0].define(version: 2023_08_10_114351) do
   add_foreign_key "favorites", "quotes"
   add_foreign_key "favorites", "users"
   add_foreign_key "quotes", "users"
+  add_foreign_key "quotes_topics", "quotes"
+  add_foreign_key "quotes_topics", "topics"
 end
