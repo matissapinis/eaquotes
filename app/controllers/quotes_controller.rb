@@ -47,7 +47,8 @@ class QuotesController < ApplicationController
   
     ## Users can see the quotes they've added:
     def user_quotes
-        @user_quotes = current_user.quotes.order(created_at: :desc)
+        ## Added pagination:
+        @user_quotes = current_user.quotes.paginate(page: params[:page]).order(created_at: :desc)
     end      
 
     private
