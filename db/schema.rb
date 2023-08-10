@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_08_10_095147) do
+ActiveRecord::Schema[7.0].define(version: 2023_08_10_114351) do
   create_table "favorites", force: :cascade do |t|
     t.integer "user_id", null: false
     t.integer "quote_id", null: false
@@ -49,6 +49,8 @@ ActiveRecord::Schema[7.0].define(version: 2023_08_10_095147) do
     t.string "lesswrong_link"
     t.string "goodreads_link"
     t.boolean "admin"
+    t.boolean "display_full_name"
+    t.boolean "display_favorites"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end

@@ -1,6 +1,8 @@
 <h3><%= @user.display_name %></h3>
-<p>Full Name: <%= @user.full_name %> <% if @user.display_name == @user.full_name %>(<i>same as display name</i>)<% end %></p>
-<br>
+<% if @user.display_full_name? %>
+    <p>Full Name: <%= @user.full_name %> <% if @user.display_name == @user.full_name %>(<i>same as display name</i>)<% end %></p>
+    <br>
+<% end %>
 
 <h5><%= @user.display_name %>' quotes:</h5>
 <ul>
@@ -21,21 +23,25 @@
 
 <br>
 <h5><%= @user.display_name %>' favorited quotes:</h5>
-<ul>
-    <% if @favorite_quotes.present? %>
-        <% @favorite_quotes.each do |quote| %>
-            <li>
-                “<%= quote.content %>”<br>
-                ― <strong><%= quote.attribution %></strong><% if quote.source.present? %><% if quote.source_link.present? %>, <%= link_to quote.source, quote.source_link %><% else %>, <%= quote.source %><% end %><% end %>
+<% if @user.display_favorites? %>
+    <ul>
+        <% if @favorite_quotes.present? %>
+            <% @favorite_quotes.each do |quote| %>
+                <li>
+                    “<%= quote.content %>”<br>
+                    ― <strong><%= quote.attribution %></strong><% if quote.source.present? %><% if quote.source_link.present? %>, <%= link_to quote.source, quote.source_link %><% else %>, <%= quote.source %><% end %><% end %>
+                    <br>
+                    <small>Posted by: <%= link_to quote.user.display_name, user_path(quote.user) %> on <%= quote.created_at.strftime("%B %d, %Y") %> &nbsp; <% if current_user.favorited_quotes.include?(quote) %><%= link_to '❤', remove_favorite_quote_path(quote), method: :delete %><% else %><%= link_to '🤍', add_favorite_quote_path(quote), method: :post %><% end %> <%= quote.favoriting_users.count %></small>
+                </li>
                 <br>
-                <small>Posted by: <%= link_to quote.user.display_name, user_path(quote.user) %> on <%= quote.created_at.strftime("%B %d, %Y") %> &nbsp; <% if current_user.favorited_quotes.include?(quote) %><%= link_to '❤', remove_favorite_quote_path(quote), method: :delete %><% else %><%= link_to '🤍', add_favorite_quote_path(quote), method: :post %><% end %> <%= quote.favoriting_users.count %></small>
-            </li>
-            <br>
+            <% end %>
+        <% else %>
+            <p>This user hasn't favorited any quotes yet.</p>
         <% end %>
-    <% else %>
-        <p>This user hasn't favorited any quotes yet.</p>
-    <% end %>
-</ul>
+    </ul>
 
-<!-- <%= will_paginate @favorite_quotes %> -->
-<%= will_paginate @favorite_quotes, param_name: 'favorites_page' %>
+    <!-- <%= will_paginate @favorite_quotes %> -->
+    <%= will_paginate @favorite_quotes, param_name: 'favorites_page' %>
+<% else %>
+    <p><%= @user.display_name %> has chosen not to display their favorites.</p>
+<% end %>

@@ -1,0 +1,17 @@
+<!-- app/views/users/settings.html.erb -->
+
+<h2>User Settings</h2>
+
+<%= form_for current_user do |f| %>
+  <div class="form-group">
+    <%= f.check_box :display_full_name %>
+    <%= f.label :display_full_name, "Display full name on profile" %>
+  </div>
+
+  <div class="form-group">
+    <%= f.check_box :display_favorites %>
+    <%= f.label :display_favorites, "Display favorited quotes on profile" %>
+  </div>
+  
+  <%= f.submit "Save", class: "btn btn-primary" %>
+<% end %>

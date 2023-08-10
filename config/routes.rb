@@ -8,23 +8,25 @@ Rails.application.routes.draw do
   devise_for :users
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
-  ## Quotes – routes for all of the standard CRUD actions and users can see the quotes they've added::
+  ## Quotes – routes for all of the standard CRUD actions and users can see the quotes they've added:
   resources :quotes do
     collection do
       get :user_quotes
       get :user_favorites
     end
 
-    # Add the new routes for favoriting and unfavoriting here:
+    ## Routes for favoriting and unfavoriting:
     member do
       post 'add_favorite'
       delete 'remove_favorite'
     end
   end  
 
-  ## Route to a user's profile:
-  resources :users, only: [:show]
-
+  ## Route to a user's profile and settings:
+  resources :users, only: [:show, :update] do
+    get 'settings', on: :collection
+  end
+  
   # Defines the root path route ("/")
   # root "articles#index"
 end

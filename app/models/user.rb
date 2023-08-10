@@ -13,7 +13,11 @@ class User < ApplicationRecord
   has_many :favorites
   has_many :favorited_quotes, through: :favorites, source: :quote
 
+  ## For user's settings page where they can toggle the display of their full name and favorites on their profile:
+  # t.boolean :display_full_name, default: true
+  # t.boolean :display_favorites, default: true
+
   def admin?
     self.admin
-  end  
+  end
 end
