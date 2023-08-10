@@ -1,0 +1,23 @@
+<h1>Your Quotes</h1>
+
+<%= link_to 'All Quotes', quotes_path %>
+<br>
+<br>
+
+<ul>
+    <% if @user_quotes.present? %>
+        <% @user_quotes.each do |quote| %>
+            <li>
+                “<%= quote.content %>”<br>― <strong><%= quote.attribution %></strong><% if quote.source.present? %><% if quote.source_link.present? %>, <%= link_to quote.source, quote.source_link %><% else %>, <%= quote.source %><% end %><% end %>
+                <br>
+                <small>Posted on <%= quote.created_at.strftime("%B %d, %Y") %></small>
+                <br>
+                <%= link_to "Edit", edit_quote_path(quote) %> |
+                <%= link_to "Delete", quote_path(quote), method: :delete, data: { confirm: "Are you sure?" } %>
+            </li>
+            <br>
+        <% end %>
+    <% else %>
+        <p>You haven't added any quotes yet.</p>
+    <% end %>
+</ul>

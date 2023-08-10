@@ -1,7 +1,10 @@
 class QuotesController < ApplicationController
     before_action :set_quote, only: [:show, :edit, :update, :destroy]
     before_action :authorize_user!, only: [:edit, :update, :destroy]
-  
+
+    ## Make sure that only logged-in users can access their quotes:
+    before_action :authenticate_user!, only: [:user_quotes]
+
     def index
         #### @quotes = Quote.all.order(created_at: :desc)
         ## Paginate the quotes:
@@ -42,6 +45,11 @@ class QuotesController < ApplicationController
       redirect_to quotes_url, notice: 'Quote was successfully destroyed.'
     end
   
+    ## Users can see the quotes they've added:
+    def user_quotes
+        @user_quotes = current_user.quotes.order(created_at: :desc)
+    end      
+
     private
   
     def set_quote
