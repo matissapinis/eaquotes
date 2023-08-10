@@ -3,6 +3,9 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
 ruby "3.1.2"
 
+## Webpacker for app-like JavaScript:
+gem 'webpacker'
+
 ## Devise for user accounts, sign in, sign out, sign up and administrators:
 gem 'devise'
 

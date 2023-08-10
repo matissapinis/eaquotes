@@ -33,5 +33,8 @@
 
       <%= yield %>
     </div>
+    <!-- #### Webpacker doesn't seem to work for deleting quotes: <%= javascript_pack_tag 'application', 'data-turbo-track': 'reload' %> -->
+    <!-- #### Trying Rails UJS instead: -->
+    <%= javascript_include_tag 'rails-ujs', 'data-turbo-track': 'reload' %>
   </body>
 </html>

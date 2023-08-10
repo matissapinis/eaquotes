@@ -12,8 +12,8 @@
       <small>Posted by: <%= quote.user.display_name %> on <%= quote.created_at.strftime("%B %d, %Y") %></small>
       <br>
       <%= link_to "Edit", edit_quote_path(quote) %> |
-      <%= button_to "Delete", quote_path(quote), method: :delete, data: { confirm: "Are you sure?" } %>
-      <!-- #### GET method delete link not working: <%= link_to "Delete", quote_path(quote), method: :delete, data: { confirm: "Are you sure?" } %> | -->
+      <!-- #### GET method delete link now working: <%= button_to "Delete", quote_path(quote), method: :delete, data: { confirm: "Are you sure?" } %> -->
+      <%= link_to "Delete", quote_path(quote), method: :delete, data: { confirm: "Are you sure?" } %>
     </li>
     <br>
   <% end %>
