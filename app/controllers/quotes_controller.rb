@@ -3,7 +3,9 @@ class QuotesController < ApplicationController
     before_action :authorize_user!, only: [:edit, :update, :destroy]
   
     def index
-      @quotes = Quote.all.order(created_at: :desc)
+        #### @quotes = Quote.all.order(created_at: :desc)
+        ## Paginate the quotes:
+        @quotes = Quote.paginate(page: params[:page]).order(created_at: :desc)
     end
   
     def show

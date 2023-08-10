@@ -1,4 +1,7 @@
 class Quote < ApplicationRecord
+    ## Pagination:
+    self.per_page = 2
+
     ## Associations and validations:
     belongs_to :user
 
