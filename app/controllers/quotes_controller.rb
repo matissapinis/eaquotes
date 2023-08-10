@@ -8,8 +8,7 @@ class QuotesController < ApplicationController
     def index
         #### @quotes = Quote.all.order(created_at: :desc)
         ## Paginate the quotes:
-        #### @quotes = Quote.paginate(page: params[:page]).order(created_at: :desc)
-        @quotes = @user.quotes.order(created_at: :desc).paginate(page: params[:quotes_page], per_page: 2)
+        @quotes = Quote.paginate(page: params[:page]).order(created_at: :desc)
     end
   
     def show
@@ -21,7 +20,7 @@ class QuotesController < ApplicationController
   
     def create
       @quote = Quote.new(quote_params)
-      @quote.user = current_user  # Assign the quote to the Devise current user
+      @quote.user = current_user  ## Assign the quote to the Devise current user.
       if @quote.save
         flash[:success] = "Quote was successfully created."
         redirect_to @quote
