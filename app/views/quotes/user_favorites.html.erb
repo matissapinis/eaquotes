@@ -8,6 +8,11 @@
             <!-- ## Add buttons to favorite and unfavorite quotes: -->
             <small>Posted by: <%= link_to quote.user.display_name, user_path(quote.user) %> on <%= quote.created_at.strftime("%B %d, %Y") %> &nbsp; <% if current_user.favorited_quotes.include?(quote) %><%= link_to '❤', remove_favorite_quote_path(quote), method: :delete %><% else %><%= link_to '🤍', add_favorite_quote_path(quote), method: :post %><% end %> <%= quote.favoriting_users.count %></small>
             <br>
+            <!-- ## Display topics for the quote: -->
+            <small>Topics:<% quote.topics.each do |topic| %>
+                <%= link_to topic.name, topic_path(topic) %>
+                <% unless topic == quote.topics.last %> | <% end %> <!-- ## Separator between topics unless it's the last topic. -->
+            <% end %></small>
             <!-- #### ♡ -->
         </li>
         <br>

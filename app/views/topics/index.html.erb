@@ -1,9 +1,10 @@
 <h1>All Topics</h1>
 
 <ul>
-  <% @topics.each do |topic| %>
+    <% @topics.each do |topic| %>
     <li>
-      <%= link_to topic.name, topic_path(topic) %>
+        <%= link_to topic.name, topic_path(topic) %>
+        (<%= topic.quotes.count %>)
     </li>
-  <% end %>
+    <% end %>
 </ul>

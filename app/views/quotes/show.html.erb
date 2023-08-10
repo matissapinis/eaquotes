@@ -12,7 +12,7 @@
 <!-- ## Display topics for quote: -->
 <br><br>
 <% @quote.topics.each do |topic| %>
-    +<%= link_to topic.name, topic_path(topic) %>
+    <%= link_to topic.name, topic_path(topic) %>
 <% end %>
 
 <br><br>

@@ -13,6 +13,13 @@
       <br>
       <small>Posted on <%= quote.created_at.strftime("%B %d, %Y") %> &nbsp; <% if current_user.favorited_quotes.include?(quote) %><%= link_to '❤', remove_favorite_quote_path(quote), method: :delete %><% else %><%= link_to '🤍', add_favorite_quote_path(quote), method: :post %><% end %> <%= quote.favoriting_users.count %></small>
     </li>
+    <!-- ## Display topics for the quote: -->
+    <small>Topics:<% quote.topics.each do |topic| %>
+        <%= link_to topic.name, topic_path(topic) %>
+        <% unless topic == quote.topics.last %> | <% end %> <!-- ## Separator between topics unless it's the last topic. -->
+    <% end %></small>
+    <br>
+    <br>
     <br>
   <% end %>
 </ul>
@@ -32,6 +39,14 @@
                     ― <strong><%= quote.attribution %></strong><% if quote.source.present? %><% if quote.source_link.present? %>, <%= link_to quote.source, quote.source_link %><% else %>, <%= quote.source %><% end %><% end %>
                     <br>
                     <small>Posted by: <%= link_to quote.user.display_name, user_path(quote.user) %> on <%= quote.created_at.strftime("%B %d, %Y") %> &nbsp; <% if current_user.favorited_quotes.include?(quote) %><%= link_to '❤', remove_favorite_quote_path(quote), method: :delete %><% else %><%= link_to '🤍', add_favorite_quote_path(quote), method: :post %><% end %> <%= quote.favoriting_users.count %></small>
+                    <!-- ## Display topics for the quote: -->
+                    <br>
+                    <small>Topics:<% quote.topics.each do |topic| %>
+                        <%= link_to topic.name, topic_path(topic) %>
+                        <% unless topic == quote.topics.last %> | <% end %> <!-- ## Separator between topics unless it's the last topic. -->
+                    <% end %></small>
+                    <br>
+                    <br>
                 </li>
                 <br>
             <% end %>
