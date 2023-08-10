@@ -5,4 +5,7 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable
 
   validates :display_name, presence: true, uniqueness: true
+
+  ## Quotes associations and validations:
+  has_many :quotes, dependent: :destroy
 end

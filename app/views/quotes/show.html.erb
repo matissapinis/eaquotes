@@ -1,0 +1,16 @@
+<p>“<%= @quote.content %>”</p>
+<!-- ## Using `.present?` to handle both nil and empty string cases: -->
+― <strong><%= @quote.attribution %></strong><% if @quote.source.present? %><% if @quote.source_link.present? %>, <%= link_to @quote.source, @quote.source_link %><% else %>, <%= @quote.source %><% end %><% end %>
+
+<br><br>
+
+<small>Original poster: <%= @quote.user.display_name %> on <%= @quote.created_at.strftime("%B %d, %Y") %></small>
+<br>
+<small>Original poster comment: <%= @quote.comment %></small>
+
+<br><br>
+
+<%= link_to "Edit", edit_quote_path(@quote) %> |
+<%= button_to "Delete", quote_path(@quote), method: :delete, data: { confirm: "Are you sure?" } %> |
+<!-- #### GET method delete link not working: <%= link_to "Delete", quote_path(@quote), method: :delete, data: { confirm: "Are you sure?" } %> | -->
+<%= link_to "Back to All Quotes", quotes_path %>

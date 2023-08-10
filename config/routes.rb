@@ -7,6 +7,9 @@ Rails.application.routes.draw do
   devise_for :users
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
+  ## Quotes – routes for all of the standard CRUD actions:
+  resources :quotes
+
   # Defines the root path route ("/")
   # root "articles#index"
 end
