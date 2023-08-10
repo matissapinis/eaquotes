@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  get 'users/show'
   ## GET /about page:
   get "about-us", to: "about#index", as: :about
 
@@ -13,6 +14,9 @@ Rails.application.routes.draw do
       get :user_quotes
     end
   end  
+
+  ## Route to a user's profile:
+  resources :users, only: [:show]
 
   # Defines the root path route ("/")
   # root "articles#index"

@@ -1,0 +1,18 @@
+<h3><%= @user.display_name %></h3>
+<p>Full Name: <%= @user.full_name %> <% if @user.display_name == @user.full_name %>(<i>same as display name</i>)<% end %></p>
+<br>
+
+<h5>Quotes by <%= @user.display_name %>:</h5>
+<ul>
+  <% @quotes.each do |quote| %>
+    <li>
+      “<%= quote.content %>”<br>
+      ― <strong><%= quote.attribution %></strong><% if quote.source.present? %><% if quote.source_link.present? %>, <%= link_to quote.source, quote.source_link %><% else %>, <%= quote.source %><% end %><% end %>
+      <br>
+      <small>Posted on <%= quote.created_at.strftime("%B %d, %Y") %></small>
+    </li>
+    <br>
+  <% end %>
+</ul>
+
+<%= will_paginate @quotes %>

@@ -9,7 +9,7 @@
         <li>
             “<%= quote.content %>”<br>― <strong><%= quote.attribution %></strong><% if quote.source.present? %><% if quote.source_link.present? %>, <%= link_to quote.source, quote.source_link %><% else %>, <%= quote.source %><% end %><% end %>
             <br>
-            <small>Posted by: <%= quote.user.display_name %> on <%= quote.created_at.strftime("%B %d, %Y") %></small>
+            <small>Posted by: <%= link_to quote.user.display_name, user_path(quote.user) %> on <%= quote.created_at.strftime("%B %d, %Y") %></small>
             <br>
             <%= link_to "Show", quote_path(quote) %> |
             <!-- Conditionally display the Edit and Delete links: -->
