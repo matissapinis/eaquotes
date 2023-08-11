@@ -1,5 +1,5 @@
 class QuotesController < ApplicationController
-    before_action :set_quote, only: [:show, :edit, :update, :destroy]
+    before_action :set_quote, only: [:show, :edit, :update, :destroy, :upvote, :downvote]
     #### before_action :authorize_user!, only: [:edit, :update, :destroy]
     before_action :authorize_user!, only: [:edit, :update, :destroy, :add_topic, :remove_topic]
 
@@ -84,6 +84,27 @@ class QuotesController < ApplicationController
         @quote.remove_topic_by_name(params[:topic_name])
         redirect_to edit_quote_path(@quote)
     end
+
+    ## Methods to handle upvotes and downvotes:
+    def upvote
+        if @quote.upvoted_by?(current_user)
+            @quote.upvoted_users.delete(current_user)
+        else
+            @quote.upvoted_users << current_user
+            @quote.downvoted_users.delete(current_user) # Ensure user can't both upvote and downvote
+        end
+        redirect_to quotes_path
+    end
+      
+    def downvote
+        if @quote.downvoted_by?(current_user)
+            @quote.downvoted_users.delete(current_user)
+        else
+            @quote.downvoted_users << current_user
+            @quote.upvoted_users.delete(current_user) # Ensure user can't both upvote and downvote
+        end
+        redirect_to quotes_path
+    end    
 
     private
   

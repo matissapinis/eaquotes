@@ -13,6 +13,10 @@ class Quote < ApplicationRecord
     has_many :quotes_topics
     has_many :topics, through: :quotes_topics
 
+    ## Upvotes and downvotes associations:
+    has_and_belongs_to_many :upvoted_users, class_name: "User", join_table: :upvotes
+    has_and_belongs_to_many :downvoted_users, class_name: "User", join_table: :downvotes
+
     ## Check whether a quote belongs to a given user:
     def owned_by?(user)
         self.user == user
@@ -45,6 +49,16 @@ class Quote < ApplicationRecord
         topic = Topic.find_by(name: name)
         self.topics.delete(topic) if topic && self.topics.include?(topic)
     end
+
+    ## Check if a user has upvoted or downvoted a particular quote:
+    def upvoted_by?(user)
+        self.upvoted_users.include?(user)
+    end
+    
+    def downvoted_by?(user)
+        self.downvoted_users.include?(user)
+    end
+    
 
     private
     

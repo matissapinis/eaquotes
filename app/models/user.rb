@@ -13,6 +13,10 @@ class User < ApplicationRecord
   has_many :favorites
   has_many :favorited_quotes, through: :favorites, source: :quote
 
+  ## Upvotes and downvotes associations:
+  has_and_belongs_to_many :upvoted_quotes, class_name: "Quote", join_table: :upvotes
+  has_and_belongs_to_many :downvoted_quotes, class_name: "Quote", join_table: :downvotes
+
   ## For user's settings page where they can toggle the display of their full name and favorites on their profile:
   # t.boolean :display_full_name, default: true
   # t.boolean :display_favorites, default: true

@@ -24,6 +24,10 @@ Rails.application.routes.draw do
       ## Routes for adding and removing topics:
       post :add_topic
       delete :remove_topic
+
+      ## Routes for upvoting and downvoting:
+      post 'upvote'
+      post 'downvote'
     end
   end  
 
