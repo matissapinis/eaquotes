@@ -1,9 +1,13 @@
-<h3><%= @user.display_name %></h3>
+<h3><%= @user.display_name %>'s profile</h3>
 <% if @user.display_full_name? %>
     <p>Full Name: <%= @user.full_name %> <% if @user.display_name == @user.full_name %>(<i>same as display name</i>)<% end %></p>
     <br>
 <% end %>
 
+<p>Favorited: 💕 <%= @user.total_favorites_received %></p>
+<p>Karma: 🌟 <%= @user.net_upvotes_received %> 👍 <%= @user.upvotes_received %> 👎<%= @user.downvotes_received %></p>
+
+<br>
 <h5><%= @user.display_name %>' quotes:</h5>
 <ul>
   <% @quotes.each do |quote| %>

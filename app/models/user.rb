@@ -24,4 +24,23 @@ class User < ApplicationRecord
   def admin?
     self.admin
   end
+
+  ## Calculate user metrics:
+  def total_favorites_received
+    quotes.sum { |quote| quote.favoriting_users.where.not(id: self.id).count }
+  end
+
+  def upvotes_received
+    upvotes = quotes.sum { |quote| quote.upvoted_users.where.not(id: self.id).count }
+  end
+
+  def downvotes_received
+    downvotes = quotes.sum { |quote| quote.downvoted_users.where.not(id: self.id).count }
+  end
+
+  def net_upvotes_received
+    upvotes = quotes.sum { |quote| quote.upvoted_users.where.not(id: self.id).count }
+    downvotes = quotes.sum { |quote| quote.downvoted_users.where.not(id: self.id).count }
+    upvotes - downvotes
+  end
 end
