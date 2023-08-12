@@ -91,7 +91,7 @@ class QuotesController < ApplicationController
             @quote.upvoted_users.delete(current_user)
         else
             @quote.upvoted_users << current_user
-            @quote.downvoted_users.delete(current_user) # Ensure user can't both upvote and downvote
+            @quote.downvoted_users.delete(current_user) ## Ensure user can't both upvote and downvote.
         end
         redirect_to request.referrer || quotes_path(page: params[:page])
     end
@@ -101,7 +101,7 @@ class QuotesController < ApplicationController
             @quote.downvoted_users.delete(current_user)
         else
             @quote.downvoted_users << current_user
-            @quote.upvoted_users.delete(current_user) # Ensure user can't both upvote and downvote
+            @quote.upvoted_users.delete(current_user) ## Ensure user can't both upvote and downvote.
         end
         redirect_to request.referrer || quotes_path(page: params[:page])
     end    
