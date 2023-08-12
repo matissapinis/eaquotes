@@ -8,42 +8,7 @@
 <ul>
   <% @quotes.each do |quote| %>
     <li>
-      “<%= quote.content %>”<br>
-      ― <strong><%= quote.attribution %></strong><% if quote.source.present? %><% if quote.source_link.present? %>, <%= link_to quote.source, quote.source_link %><% else %>, <%= quote.source %><% end %><% end %>
-      <br>
-        <small>
-            <!-- Posted by: Matīss Apinis on August 10, 2023   🤍 0 🔼 0 🔽 0 -->
-            Posted on <%= quote.created_at.strftime("%B %d, %Y") %>
-            &nbsp; 
-            <!-- ## Show favorites: -->
-            <% if current_user.favorited_quotes.include?(quote) %>
-                <%= link_to '❤', remove_favorite_quote_path(quote, page: params[:page]), method: :delete %>
-            <% else %>
-                <%= link_to '🤍', add_favorite_quote_path(quote, page: params[:page]), method: :post %>
-            <% end %>
-            <%= quote.favoriting_users.count %>
-            <!-- ## Show upvotes and downvotes: -->
-            <% if current_user.upvoted_quotes.include?(quote) %>
-                <%= link_to '👍', upvote_quote_path(quote, page: params[:page]), method: :post %>
-            <% else %>
-                <%= link_to '🔼', upvote_quote_path(quote, page: params[:page]), method: :post %>
-            <% end %> 
-            <%= quote.upvoted_users.count %>
-            <% if current_user.downvoted_quotes.include?(quote) %>
-                <%= link_to '👎', downvote_quote_path(quote, page: params[:page]), method: :post %>
-            <% else %>
-                <%= link_to '🔽', downvote_quote_path(quote, page: params[:page]), method: :post %>
-            <% end %> 
-            <%= quote.downvoted_users.count %>
-        </small>
-    </li>
-    <!-- ## Display topics for the quote: -->
-    <small>Topics:<% quote.topics.each do |topic| %>
-        <%= link_to topic.name, topic_path(topic) %>
-        <% unless topic == quote.topics.last %> | <% end %> <!-- ## Separator between topics unless it's the last topic. -->
-    <% end %></small>
-    <br>
-    <br>
+        <%= render 'shared/quote', quote: quote %>
     <br>
   <% end %>
 </ul>
@@ -63,44 +28,9 @@
         <% if @favorite_quotes.present? %>
             <% @favorite_quotes.each do |quote| %>
                 <li>
-                    “<%= quote.content %>”<br>
-                    ― <strong><%= quote.attribution %></strong><% if quote.source.present? %><% if quote.source_link.present? %>, <%= link_to quote.source, quote.source_link %><% else %>, <%= quote.source %><% end %><% end %>
-                    <br>
-                    <small>
-                        <!-- Posted by: Matīss Apinis on August 10, 2023   🤍 0 🔼 0 🔽 0 -->
-                        Posted by: <%= link_to quote.user.display_name, user_path(quote.user) %> on <%= quote.created_at.strftime("%B %d, %Y") %>
-                        &nbsp; 
-                        <!-- ## Show favorites: -->
-                        <% if current_user.favorited_quotes.include?(quote) %>
-                            <%= link_to '❤', remove_favorite_quote_path(quote), method: :delete %>
-                        <% else %>
-                            <%= link_to '🤍', add_favorite_quote_path(quote), method: :post %>
-                        <% end %>
-                        <%= quote.favoriting_users.count %>
-                        <!-- ## Show upvotes and downvotes: -->
-                        <% if current_user.upvoted_quotes.include?(quote) %>
-                            <%= link_to '👍', upvote_quote_path(quote), method: :post %>
-                        <% else %>
-                            <%= link_to '🔼', upvote_quote_path(quote), method: :post %>
-                        <% end %> 
-                        <%= quote.upvoted_users.count %>
-                        <% if current_user.downvoted_quotes.include?(quote) %>
-                            <%= link_to '👎', downvote_quote_path(quote), method: :post %>
-                        <% else %>
-                            <%= link_to '🔽', downvote_quote_path(quote), method: :post %>
-                        <% end %> 
-                        <%= quote.downvoted_users.count %>
-                    </small>
-                    <!-- ## Display topics for the quote: -->
-                    <br>
-                    <small>Topics:<% quote.topics.each do |topic| %>
-                        <%= link_to topic.name, topic_path(topic) %>
-                        <% unless topic == quote.topics.last %> | <% end %> <!-- ## Separator between topics unless it's the last topic. -->
-                    <% end %></small>
-                    <br>
+                    <%= render 'shared/quote', quote: quote %>
                     <br>
                 </li>
-                <br>
             <% end %>
         <% else %>
             <p>You haven't favorited any quotes yet.</p>
@@ -113,44 +43,9 @@
         <% if @favorite_quotes.present? %>
             <% @favorite_quotes.each do |quote| %>
                 <li>
-                    “<%= quote.content %>”<br>
-                    ― <strong><%= quote.attribution %></strong><% if quote.source.present? %><% if quote.source_link.present? %>, <%= link_to quote.source, quote.source_link %><% else %>, <%= quote.source %><% end %><% end %>
-                    <br>
-                    <small>
-                        <!-- Posted by: Matīss Apinis on August 10, 2023   🤍 0 🔼 0 🔽 0 -->
-                        Posted by: <%= link_to quote.user.display_name, user_path(quote.user) %> on <%= quote.created_at.strftime("%B %d, %Y") %>
-                        &nbsp; 
-                        <!-- ## Show favorites: -->
-                        <% if current_user.favorited_quotes.include?(quote) %>
-                            <%= link_to '❤', remove_favorite_quote_path(quote), method: :delete %>
-                        <% else %>
-                            <%= link_to '🤍', add_favorite_quote_path(quote), method: :post %>
-                        <% end %>
-                        <%= quote.favoriting_users.count %>
-                        <!-- ## Show upvotes and downvotes: -->
-                        <% if current_user.upvoted_quotes.include?(quote) %>
-                            <%= link_to '👍', upvote_quote_path(quote), method: :post %>
-                        <% else %>
-                            <%= link_to '🔼', upvote_quote_path(quote), method: :post %>
-                        <% end %> 
-                        <%= quote.upvoted_users.count %>
-                        <% if current_user.downvoted_quotes.include?(quote) %>
-                            <%= link_to '👎', downvote_quote_path(quote), method: :post %>
-                        <% else %>
-                            <%= link_to '🔽', downvote_quote_path(quote), method: :post %>
-                        <% end %> 
-                        <%= quote.downvoted_users.count %>
-                    </small>
-                    <!-- ## Display topics for the quote: -->
-                    <br>
-                    <small>Topics:<% quote.topics.each do |topic| %>
-                        <%= link_to topic.name, topic_path(topic) %>
-                        <% unless topic == quote.topics.last %> | <% end %> <!-- ## Separator between topics unless it's the last topic. -->
-                    <% end %></small>
-                    <br>
+                    <%= render 'shared/quote', quote: quote %>
                     <br>
                 </li>
-                <br>
             <% end %>
         <% else %>
             <p>This user hasn't favorited any quotes yet.</p>
