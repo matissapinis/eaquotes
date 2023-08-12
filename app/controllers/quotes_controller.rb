@@ -67,11 +67,6 @@ class QuotesController < ApplicationController
         redirect_to request.referrer || quotes_path(page: params[:page]), notice: 'Quote removed from favorites.'
     end      
 
-    ## Paginate and display the user's favorite quotes:
-    def user_favorites
-        @favorite_quotes = current_user.favorited_quotes.paginate(page: params[:page]).order(created_at: :desc)
-    end    
-
     ## Methods to add and remove topics from quotes:
     def add_topic
         @quote = Quote.find(params[:id])
@@ -104,6 +99,22 @@ class QuotesController < ApplicationController
             @quote.upvoted_users.delete(current_user) ## Ensure user can't both upvote and downvote.
         end
         redirect_to request.referrer || quotes_path(page: params[:page])
+    end    
+
+    def user_favorites
+        @user = current_user
+        ## Fetch favorited quotes to paginate and display the user's favorite quotes:
+        @favorite_quotes = @user.favorited_quotes.paginate(page: params[:page]).order(created_at: :desc)
+    
+        ## Fetch recently voted quotes:
+        all_recently_voted_quotes = Quote.joins("LEFT JOIN upvotes ON upvotes.quote_id = quotes.id")
+        .joins("LEFT JOIN downvotes ON downvotes.quote_id = quotes.id")
+        .where('upvotes.user_id = ? OR downvotes.user_id = ?', @user.id, @user.id)
+        .order(updated_at: :desc)
+        .distinct
+        .limit(10)
+
+        @recently_voted_quotes = all_recently_voted_quotes.paginate(page: params[:recent_votes_page], per_page: 2)
     end    
 
     private

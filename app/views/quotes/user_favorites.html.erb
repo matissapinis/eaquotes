@@ -12,3 +12,17 @@
 <% else %>
     <p>You haven't favorited any quotes yet.</p>
 <% end %>
+
+<br>
+<br>
+<h2>Your 10 Most Recently Voted Quotes:</h2>
+<ul>
+  <% @recently_voted_quotes.each do |quote| %>
+    <li>
+        <%= render 'shared/quote', quote: quote %>
+        <br>
+    </li>
+  <% end %>
+</ul>
+<%= will_paginate @recently_voted_quotes, param_name: 'recent_votes_page' %>
+<br>
