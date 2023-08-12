@@ -55,16 +55,16 @@ class QuotesController < ApplicationController
     def add_favorite
         favorite = current_user.favorites.build(quote_id: params[:id])
         if favorite.save
-          redirect_to quotes_path, notice: 'Quote added to favorites!'
+          redirect_to request.referrer ||  quotes_path(page: params[:page]), notice: 'Quote added to favorites!'
         else
-          redirect_to quotes_path, alert: 'Something went wrong... *sad panda*'
+          redirect_to request.referrer || quotes_path(page: params[:page]), alert: 'Something went wrong... *sad panda*'
         end
     end
       
     def remove_favorite
         favorite = current_user.favorites.find_by(quote_id: params[:id])
         favorite.destroy
-        redirect_to quotes_path, notice: 'Quote removed from favorites.'
+        redirect_to request.referrer || quotes_path(page: params[:page]), notice: 'Quote removed from favorites.'
     end      
 
     ## Paginate and display the user's favorite quotes:
@@ -93,7 +93,7 @@ class QuotesController < ApplicationController
             @quote.upvoted_users << current_user
             @quote.downvoted_users.delete(current_user) # Ensure user can't both upvote and downvote
         end
-        redirect_to quotes_path
+        redirect_to request.referrer || quotes_path(page: params[:page])
     end
       
     def downvote
@@ -103,7 +103,7 @@ class QuotesController < ApplicationController
             @quote.downvoted_users << current_user
             @quote.upvoted_users.delete(current_user) # Ensure user can't both upvote and downvote
         end
-        redirect_to quotes_path
+        redirect_to request.referrer || quotes_path(page: params[:page])
     end    
 
     private

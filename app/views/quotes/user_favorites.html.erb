@@ -11,22 +11,22 @@
                 &nbsp; 
                 <!-- ## Show favorites: -->
                 <% if current_user.favorited_quotes.include?(quote) %>
-                    <%= link_to '❤', remove_favorite_quote_path(quote), method: :delete %>
+                    <%= link_to '❤', remove_favorite_quote_path(quote, page: params[:page]), method: :delete %>
                 <% else %>
-                    <%= link_to '🤍', add_favorite_quote_path(quote), method: :post %>
+                    <%= link_to '🤍', add_favorite_quote_path(quote, page: params[:page]), method: :post %>
                 <% end %>
                 <%= quote.favoriting_users.count %>
                 <!-- ## Show upvotes and downvotes: -->
                 <% if current_user.upvoted_quotes.include?(quote) %>
-                    <%= link_to '👍', upvote_quote_path(quote), method: :post %>
+                    <%= link_to '👍', upvote_quote_path(quote, page: params[:page]), method: :post %>
                 <% else %>
-                    <%= link_to '🔼', upvote_quote_path(quote), method: :post %>
+                    <%= link_to '🔼', upvote_quote_path(quote, page: params[:page]), method: :post %>
                 <% end %> 
                 <%= quote.upvoted_users.count %>
                 <% if current_user.downvoted_quotes.include?(quote) %>
-                    <%= link_to '👎', downvote_quote_path(quote), method: :post %>
+                    <%= link_to '👎', downvote_quote_path(quote, page: params[:page]), method: :post %>
                 <% else %>
-                    <%= link_to '🔽', downvote_quote_path(quote), method: :post %>
+                    <%= link_to '🔽', downvote_quote_path(quote, page: params[:page]), method: :post %>
                 <% end %> 
                 <%= quote.downvoted_users.count %>
             </small>
